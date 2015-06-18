@@ -44,6 +44,9 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
+        with_timing "release Stage!" do
+          shell "echo 1"
+        end
       end
 
       protected
