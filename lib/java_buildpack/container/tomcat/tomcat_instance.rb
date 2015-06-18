@@ -95,12 +95,10 @@ module JavaBuildpack
           with_timing "unzipping tcat" do
             shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 2>&1"
           end
-          
-          #shell "mv #{@droplet.sandbox}/webapps #{@droplet.sandbox}/webapps2"
+          shell "mv #{@droplet.sandbox}/webapps #{@droplet.sandbox}/webapps2"
           with_timing "droplet.copy_resources" do
             @droplet.copy_resources
           end
-          
           #shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
           configure_linking
           configure_jasper
