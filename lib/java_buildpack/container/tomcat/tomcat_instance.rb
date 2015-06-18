@@ -38,9 +38,9 @@ module JavaBuildpack
       def compile
         download(@version, @uri) { |file| expand file }
         link_to(@application.root.children, root)
-#        with_timing "Post Linking" do
- #         shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
-  #      end
+        with_timing "Post Linking" do
+          shell "cp -rn #{@droplet.sandbox}/webapps/ROOT_orig/* #{@droplet.sandbox}/webapps/ROOT"
+        end
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
       end
