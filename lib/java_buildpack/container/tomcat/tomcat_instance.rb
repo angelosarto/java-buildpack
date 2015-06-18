@@ -92,7 +92,7 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 2>&1"
           shell "mv #{@droplet.sandbox}/webapps #{@droplet.sandbox}/webapps2"
           @droplet.copy_resources
-          # shell "cp -rn #{@droplet.sandbox}/webapps2 #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
+          shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
           configure_linking
           configure_jasper
         end
