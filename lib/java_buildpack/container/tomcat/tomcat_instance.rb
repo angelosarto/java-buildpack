@@ -90,9 +90,9 @@ module JavaBuildpack
         with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 2>&1"
-          shell "mv #{@droplet.sandbox}/webapps #{@droplet.sandbox}/webapps2"
+          #shell "mv #{@droplet.sandbox}/webapps #{@droplet.sandbox}/webapps2"
           @droplet.copy_resources
-          shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
+          #shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
           configure_linking
           configure_jasper
         end
