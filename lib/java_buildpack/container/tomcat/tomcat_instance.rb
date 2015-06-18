@@ -38,15 +38,15 @@ module JavaBuildpack
       def compile
         download(@version, @uri) { |file| expand file }
         link_to(@application.root.children, root)
+#        with_timing "Post Linking" do
+ #         shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
+  #      end
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        with_timing "release Stage..." do
-          shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
-        end
       end
 
       protected
@@ -95,11 +95,10 @@ module JavaBuildpack
           with_timing "unzipping tcat" do
             shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 2>&1"
           end
-          shell "mv #{@droplet.sandbox}/webapps #{@droplet.sandbox}/webapps2"
+          shell "mv #{@droplet.sandbox}/webapps/ROOT #{@droplet.sandbox}/webapps/ROOT_orig"
           with_timing "droplet.copy_resources" do
             @droplet.copy_resources
           end
-          #shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
           configure_linking
           configure_jasper
         end
