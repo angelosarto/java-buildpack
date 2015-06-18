@@ -44,8 +44,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        with_timing "release Stage!" do
-          shell "echo 1"
+        with_timing "release Stage..." do
+          shell "cp -rn #{@droplet.sandbox}/webapps2/* #{@droplet.sandbox}/webapps && rm -rf #{@droplet.sandbox}/webapps2"
         end
       end
 
